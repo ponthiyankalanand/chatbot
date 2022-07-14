@@ -12,6 +12,11 @@ port="5432"
 stop_words = stopwords.words('english')
 
 log = open('log.txt', 'w')
+def keygen():
+	now = datetime.datetime.now()
+	keynum = now.strftime("%H%M%f")
+	return(keynum)
+
 def dataProcessing(text):
 
 	tokens = nltk.word_tokenize(text)
@@ -21,13 +26,16 @@ def dataProcessing(text):
 	for word in tokens:
 		if word not in stop_words:
 			tokensWithOutStopWords.append(word)
+	key=keygen()
+	tokensWithOutStopWords.append(key)
 	print("Tokens With Out Stop Words: ",tokensWithOutStopWords)
-	return(tokensWithOutStopWords)
-def dataInsert(data_val,token_val):
+
+	return(tokensWithOutStopWords,key)
+def dataInsert(data_val,token_val,key_val):
 	conn = psycopg2.connect(database=NAME,user=USER,password=PASSWORD,host=HOST,port=port)
 	cur=conn.cursor()
 	try:
-		cur.execute("insert into answer (data,token) values (%s, %s)", (data_val,token_val))
+		cur.execute("insert into answer (data,token,key) values (%s, %s,%s)", (data_val,token_val,key_val))
 		conn.commit()
 		conn.close()
 	except:
@@ -35,14 +43,20 @@ def dataInsert(data_val,token_val):
 		log.writelines(x+"db inseration error"+"\n")
 
 def training():
+
 	file = open('input.txt', 'r')
 	lines = file.readlines()
-
+	trainingData = []
 	for index, line in enumerate(lines):
 	    text= ("{}".format(line.strip()))
 	    tokens = dataProcessing(text)
-	    dataInsert(text,tokens)
+	    trainingData.append(tokens[0])
+	    dataInsert(text,tokens[0],tokens[1])
 	file.close()
-
+	train = open('trainingInput.txt', 'w')
+	train.writelines(str(trainingData))
+	train.close()
+	print(trainingData)
 training()
+
 log.close()
