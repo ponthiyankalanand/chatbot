@@ -2,13 +2,7 @@ import psycopg2
 import nltk
 from nltk.corpus import stopwords
 import datetime
-
-NAME= "knowledge"
-USER="postgres"
-PASSWORD="admin"
-HOST="127.0.0.1"
-port="5432"
-
+from dbConfig import *
 stop_words = stopwords.words('english')
 
 log = open('log.txt', 'w')
