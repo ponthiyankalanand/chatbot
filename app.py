@@ -8,11 +8,30 @@ from dbConfig import *
 
 #declaration
 engine = pyttsx3.init()
-name='robo'
+
 sound = engine.getProperty('voices')
 stop_words = stopwords.words('english')
 # print(stop_words)
 #functions
+def searchFinalAns(key):
+	conn = psycopg2.connect(database=NAME,user=USER,password=PASSWORD,host=HOST,port=port)
+	cur=conn.cursor()
+	cur.execute('select data from answer where key = %s', key)
+	rows = cur.fetchall()
+
+
+def maxCatcher(List):
+	counter = 0
+	num = List[0]
+     
+	for i in List:
+		curr_frequency = List.count(i)
+		if(curr_frequency> counter):
+			counter = curr_frequency
+			num = i
+	print("repeated", num)
+	return(num)
+
 def search(token_key):
 		conn = psycopg2.connect(database=NAME,user=USER,password=PASSWORD,host=HOST,port=port)
 		cur=conn.cursor()
@@ -25,11 +44,18 @@ def search(token_key):
 			val = token_key[count]
 			length = length - 1
 			count = count + 1
-			query=cur.execute('select key from  answer where token like  %s', (val,))
-
+			sql='SELECT key from answer  WHERE token LIKE %s'
+			search_term = val
+			like_pattern = '%{}%'.format(search_term)
+			cur.execute(sql, (like_pattern,))
+			rows = cur.fetchall()
+			key.append(rows)
 			conn.commit()
-			print(query)
+			print(key)
+		ansKey=maxCatcher(key)
 		conn.close()
+		return(ansKey)
+
 
 def wrongAns(data):
 	print(data)
@@ -47,7 +73,7 @@ def dataProcessing(text):
 		if word not in stop_words:
 			tokensWithOutStopWords.append(word)
 	print(tokensWithOutStopWords)
-	search(tokensWithOutStopWords)
+	#search(tokensWithOutStopWords)
 	return(tokensWithOutStopWords)
 #main
 def main():
@@ -58,6 +84,8 @@ def main():
 			sans = speechtotext()
 			data = str(sans.lower()) 
 			token = dataProcessing(data)
+			searchKey=search(token)
+
 			var="tara"
 			if (var == name):
 				speak("anand")
@@ -70,7 +98,7 @@ def main():
 				wrongAns(data)
 		elif (mode==1):
 			#try:
-			data = str((input("Enter the name: ")).lower())
+			data = str((input("Enter your Query ")).lower())
 			print (data)
 			token = dataProcessing(data)
 			mode_change = int(input("Enter	2 for Activate Voice Mode"))
