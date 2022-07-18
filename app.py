@@ -5,6 +5,7 @@ import nltk
 from nltk.corpus import stopwords
 import psycopg2
 from dbConfig import *
+import re
 
 #declaration
 engine = pyttsx3.init()
@@ -14,10 +15,15 @@ stop_words = stopwords.words('english')
 # print(stop_words)
 #functions
 def searchFinalAns(key):
+	ans=[]
 	conn = psycopg2.connect(database=NAME,user=USER,password=PASSWORD,host=HOST,port=port)
 	cur=conn.cursor()
-	cur.execute('select data from answer where key = %s', key)
-	rows = cur.fetchall()
+	cur.execute('select data from answer where key = %s', (key,))
+	rows = str(cur.fetchone())
+	ans.append(re.sub("[}{,.)(]",'', rows))
+	#print(ans[0])
+	conn.close()
+	return(ans[0])
 
 
 def maxCatcher(List):
@@ -29,7 +35,10 @@ def maxCatcher(List):
 		if(curr_frequency> counter):
 			counter = curr_frequency
 			num = i
-	print("repeated", num)
+ 
+	#print("repeated", num)
+	if (num=="None"):
+		num='001'
 	return(num)
 
 def search(token_key):
@@ -48,10 +57,11 @@ def search(token_key):
 			search_term = val
 			like_pattern = '%{}%'.format(search_term)
 			cur.execute(sql, (like_pattern,))
-			rows = cur.fetchall()
-			key.append(rows)
+			rows = str(cur.fetchone())
+			#print(rows)
+			key.append(re.sub("[}{,.')(]",'', rows))
 			conn.commit()
-			print(key)
+			#print(key)
 		ansKey=maxCatcher(key)
 		conn.close()
 		return(ansKey)
@@ -66,13 +76,13 @@ def speak(ans):
 def dataProcessing(text):
 
 	tokens = nltk.word_tokenize(text)
-	print (tokens)
+	#print (tokens)
 
 	tokensWithOutStopWords = []
 	for word in tokens:
 		if word not in stop_words:
 			tokensWithOutStopWords.append(word)
-	print(tokensWithOutStopWords)
+	#print(tokensWithOutStopWords)
 	#search(tokensWithOutStopWords)
 	return(tokensWithOutStopWords)
 #main
@@ -82,39 +92,54 @@ def main():
 		if (mode==2):
 			print("Say `Activate keybord` for test input mode \n Report wrong answer `Wrong answer`")
 			sans = speechtotext()
+			print("You: ",sans)
 			data = str(sans.lower()) 
 			token = dataProcessing(data)
-			searchKey=search(token)
-
 			var="tara"
-			if (var == name):
-				speak("anand")
+			if (name == var):
+				searchKey=search(token)
+				out=searchFinalAns(searchKey)
+				speak(out)
+				speak('Are you happy with this answer?. yes or no?')
+				sans = speechtotext()
+				if (sans=='yes'):
+					print("thanks")
+				elif (sans=='no'):
+					wrongAns(data)
+				else:
+					print('wrong input')
+
 			elif(data == 'goodbye'):
 				print (":)")
 				break
 			elif(data=='activate keyboard'):
 				mode=1
+				speak("Text input mode enabled")
 			elif(data =='wrong answer'):
 				wrongAns(data)
 		elif (mode==1):
 			#try:
 			data = str((input("Enter your Query ")).lower())
-			print (data)
+			print ("You: ",data)
 			token = dataProcessing(data)
-			mode_change = int(input("Enter	2 for Activate Voice Mode"))
-			print(type(mode_change))
-			if (mode_change==2):
-				mode=2
-			else:
-				#nothing to do
-				print("text mode")
-			ans=(input("Are you happy with this answer? Y/N")).lower()
+			searchVal=search(token)
+			out=searchFinalAns(searchVal)
+			print(name,": ",out)
+			ans=(input(" Are you happy with this answer? Y/N")).lower()
 			if (ans=='y'):
 				print("thanks")
 			elif (ans=='n'):
 				wrongAns(data)
 			else:
 				print('wrong input')
+			mode_change = int(input("Enter	2 for Activate Voice Mode"))
+			print(type(mode_change))
+			if (mode_change==2):
+				mode=2
+				print("Voice mode enabled")
+			else:
+				#nothing to do
+				print("text mode")
 			#except:
 				#print("system failed :(")
 
