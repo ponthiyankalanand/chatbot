@@ -43,7 +43,7 @@ def training():
 	trainingData = []
 	for index, line in enumerate(lines):
 	    text= ("{}".format(line.strip()))
-	    tokens = dataProcessing(text)
+	    tokens = dataProcessing(text.lower())
 	    trainingData.append(tokens[0])
 	    dataInsert(text,tokens[0],tokens[1])
 	file.close()

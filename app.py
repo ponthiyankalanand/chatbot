@@ -82,7 +82,7 @@ def dataProcessing(text):
 	for word in tokens:
 		if word not in stop_words:
 			tokensWithOutStopWords.append(word)
-	#print(tokensWithOutStopWords)
+	print(tokensWithOutStopWords)
 	#search(tokensWithOutStopWords)
 	return(tokensWithOutStopWords)
 #main
@@ -94,29 +94,29 @@ def main():
 			sans = speechtotext()
 			print("You: ",sans)
 			data = str(sans.lower()) 
-			token = dataProcessing(data)
-			var="tara"
-			if (name == var):
-				searchKey=search(token)
-				out=searchFinalAns(searchKey)
-				speak(out)
-				speak('Are you happy with this answer?. yes or no?')
-				sans = speechtotext()
-				if (sans=='yes'):
-					print("thanks")
-				elif (sans=='no'):
-					wrongAns(data)
-				else:
-					print('wrong input')
-
-			elif(data == 'goodbye'):
-				print (":)")
-				break
-			elif(data=='activate keyboard'):
+			if(data=='activate keyboard'):
 				mode=1
 				speak("Text input mode enabled")
-			elif(data =='wrong answer'):
-				wrongAns(data)
+			elif(data == 'goodbye'):
+					print (":)")
+					break
+			else:
+				token = dataProcessing(data)
+				var="sara"
+				if (name == var):
+					searchKey=search(token)
+					out=searchFinalAns(searchKey)
+					speak(out)
+					speak('Are you happy with this answer?. yes or no?')
+					sans = speechtotext()
+					if (sans=='yes'):
+						print("thanks")
+					elif (sans=='no'):
+						wrongAns(data)
+					else:
+						print('wrong input')
+				elif(data =='wrong answer'):
+					wrongAns(data)
 		elif (mode==1):
 			#try:
 			data = str((input("Enter your Query ")).lower())
