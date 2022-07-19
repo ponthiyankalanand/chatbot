@@ -86,7 +86,7 @@ def dataProcessing(text):
 	for word in tokens:
 		if word not in stop_words:
 			tokensWithOutStopWords.append(word)
-	print(tokensWithOutStopWords)
+	#print(tokensWithOutStopWords)
 	#search(tokensWithOutStopWords)
 	return(tokensWithOutStopWords)
 #main
@@ -94,7 +94,7 @@ def main():
 	mode =1 #1 for text mode, 2 for voice
 	while(True):
 		if (mode==2):
-			print("Say `Activate keybord` for test input mode \n Report wrong answer `Wrong answer`")
+			print("Say `Activate keybord` for test input mode")
 			sans = speechtotext()
 			print("You: ",sans)
 			data = str(sans.lower()) 
@@ -123,7 +123,7 @@ def main():
 					wrongAns(data)
 		elif (mode==1):
 			#try:
-			data = str((input("Enter your Query ")).lower())
+			data = str((input(" Enter your Query ")).lower())
 			print ("You: ",data)
 			token = dataProcessing(data)
 			searchVal=search(token)
