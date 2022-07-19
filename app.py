@@ -68,7 +68,11 @@ def search(token_key):
 
 
 def wrongAns(data):
-	print(data)
+	texttoappend=data
+	appendFile=open('feedback.txt','a')
+	appendFile.write('\n')
+	appendFile.write(texttoappend)
+	print("feedback recorded")
 
 def speak(ans):
 	engine.say(ans)
