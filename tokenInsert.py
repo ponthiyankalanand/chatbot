@@ -34,7 +34,9 @@ def dataInsert(data_val,token_val,key_val):
 		conn.close()
 	except:
 		x = str(datetime.datetime.now())
-		log.writelines(x+"db inseration error"+"\n")
+		appendFile=open('log.txt','a')
+		appendFile.write('\n')
+		appendFile.write(x)
 
 def training():
 

@@ -49,7 +49,7 @@ def search(token_key):
 		if (length	> 4):
 			length = 4
 		count = 0
-		while (length != 0):
+		while (length > 0):
 			val = token_key[count]
 			length = length - 1
 			count = count + 1
@@ -107,7 +107,7 @@ def main():
 					break
 			else:
 				token = dataProcessing(data)
-				var="sara"
+				var="Tele"
 				if (name == var):
 					searchKey=search(token)
 					out=searchFinalAns(searchKey)
@@ -138,13 +138,13 @@ def main():
 			else:
 				print('wrong input')
 			mode_change = int(input("Enter	2 for Activate Voice Mode"))
-			print(type(mode_change))
+			#print(type(mode_change))
 			if (mode_change==2):
 				mode=2
 				print("Voice mode enabled")
 			else:
 				#nothing to do
-				print("text mode")
+				print("Text mode enabled")
 			#except:
 				#print("system failed :(")
 

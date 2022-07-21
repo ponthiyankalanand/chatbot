@@ -16,11 +16,11 @@ def speechtotext():
 # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
 # instead of `r.recognize_google(audio)`
          recaudio = r.recognize_google(audio)
-         print("You said: " + recaudio)
+         #print("You said: " + recaudio)
       except sr.UnknownValueError:
-         print("System could not understand audio") 
+         #print("System could not understand audio") 
          recaudio = "sorry"       
       except sr.RequestError as e:
-         print("Could not request results from Google Speech Recognition service; {0}".format(e))
+         #print("Could not request results from Google Speech Recognition service; {0}".format(e))
          recaudio = "sorry"
    return(recaudio)
