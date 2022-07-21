@@ -1,14 +1,14 @@
 # Hai All
-'Sara' is a small chatbot can operate with voice and text mode. We created Sara with python, postgres and a lots of love. 
+'Tele' is a small chatbot can operate with voice and text mode. We created Tele with python, postgres and a lots of love. 
 
-# What Sara Can Do ?
-Sara can listen, speak, answer your questions with in her knowledge base.
+# What Tele Can Do ?
+Tele can listen, speak, answer your questions with in her knowledge base.
 
-# How can be Train Sara?
+# How can be Train Tele?
 ## Step 1:
 prepaire Answers in a file (line by line). Rename it with 'input.txt' then run 'python tokenInsert.py'.
 ## Step 2:
-Test Sara, Run 'app.py' and talk with sara. If she return wrong answer say/type 'No' for the answer, Then Sara will store the question in 'feedback.txt' file. You can train again with this data.
+Test Tele, Run 'app.py' and talk with sara. If she return wrong answer say/type 'No' for the answer, Then Tele will store the question in 'feedback.txt' file. You can train again with this data.
 ## Step 3:
 track the errors, Refer the 'log.txt' file for analize logs.
 
