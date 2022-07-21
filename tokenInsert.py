@@ -42,10 +42,15 @@ def training():
 	lines = file.readlines()
 	trainingData = []
 	for index, line in enumerate(lines):
-	    text= ("{}".format(line.strip()))
-	    tokens = dataProcessing(text.lower())
-	    trainingData.append(tokens[0])
-	    dataInsert(text,tokens[0],tokens[1])
+		try:
+		    text= ("{}".format(line.strip()))
+		    tokens = dataProcessing(text.lower())
+		    trainingData.append(tokens[0])
+		    dataInsert(text,tokens[0],tokens[1])
+
+		except:
+			x = str(lines)
+			log.writelines(x+"db inseration error"+"\n")
 	file.close()
 	train = open('trainingInput.txt', 'w')
 	train.writelines(str(trainingData))

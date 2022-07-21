@@ -91,6 +91,7 @@ def dataProcessing(text):
 	return(tokensWithOutStopWords)
 #main
 def main():
+	print("Hey there, How can I help you?")
 	mode =1 #1 for text mode, 2 for voice
 	while(True):
 		if (mode==2):

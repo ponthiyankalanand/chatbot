@@ -1,0 +1,63 @@
+what is CRM?
+Full form of CRM?
+Full form of COM?
+Full form of UPC?
+Explain importance of UPC in telecom industry?
+How to create new plan and service?
+what are the different types of plan categorization?
+What is Tariff Definition in UPC?
+What is Recharge Definition in UPC?
+What is MSISDN zone?
+What is Country Zone?
+what is Onboarding?
+Explain Contract Management?
+Explain Two Types of Notification Templates?
+What is Dispute?
+Different types of onboarding?
+what is Promise to Pay?
+what is Kyc?
+what is Billing Medium?
+what is invoice?
+what is adjustment?
+Different types of adjustment classification?
+What is bill cycle?
+what is safe custody?
+what is SCM?
+Full form of SCM?
+Types of payment methods?
+what is TOS?
+what is Connection Migration?
+Type of Notification
+Different case where notification will trigger?
+what is Bucket Definition?
+what is Ticketing?
+How to change a plan in crm?
+what is FNF?
+what is CUG?
+what is Zero Invoice?
+How to perform CHANGE MSISDN?
+What is Autopay?
+Explain Billing Account?
+What is Business Fees?
+What is Bad Dept?
+Full form of CAF?
+Full form of WFM?
+Full form of CFSS?
+Full form of RFSS?
+Full form of PRS?
+Full form of LRS?
+What is CFSS?
+What is RFSS?
+What is PRS?
+What is LRS?
+What is Dunning?
+what is CDR?
+Full form of CDR?
+What is Voucher Topup?
+Different States of Voucher Life Cycle?
+What is full form of KYC?
+What is Prepaid service?
+What is Postpaid Service?
+what is Balance Transfer?
+Explain Book Deposit?
+what is Risk category?
