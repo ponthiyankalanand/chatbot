@@ -33,5 +33,26 @@ nltk.download('stopwords')
 
 > python -m pip install numpy matplotlib
 
+# DB Query
+-- Table: public.answer
+
+-- DROP TABLE IF EXISTS public.answer;
+
+CREATE TABLE IF NOT EXISTS public.answer
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    data character varying COLLATE pg_catalog."default" NOT NULL,
+    token character varying COLLATE pg_catalog."default" NOT NULL,
+    key integer,
+    CONSTRAINT answer_pkey PRIMARY KEY (id),
+    CONSTRAINT answer_token_key_key UNIQUE (token, id),
+    CONSTRAINT token_unique UNIQUE (token)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.answer
+    OWNER to postgres;
+
 
 
