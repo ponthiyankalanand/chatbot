@@ -54,5 +54,5 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.answer
     OWNER to postgres;
 
-
+[PPT Doc] (https://docs.google.com/presentation/d/1nnJdWRHLIKYhyErknELVGB4M3oCSHz6-/edit?usp=sharing&ouid=117216474420121531915&rtpof=true&sd=true)
 
